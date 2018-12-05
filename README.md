@@ -9,7 +9,7 @@ React Native Dropdown is simple, customizable and easy to use dropdown in React 
 ## Installation
 
 ```
-npm install https://github.com/rollsroyc3/react-native-dropdown --save
+npm install https://github.com/mohsinriaz17/react-native-dropdown --save
 ```
 
 ## Usage
@@ -31,27 +31,22 @@ import DropDown from 'react-native-dropdown';
 const { Select, Option, OptionList, updatePosition } = DropDown;
 
 class App extends Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            canada: '',
-        };
-    }
-
+    state = {
+            selectionResult: '',
+    };
+        
     componentDidMount() {
         updatePosition(this.refs['SELECT1']);
         updatePosition(this.refs['OPTIONLIST']);
     }
 
-    _getOptionList() {
-        return this.refs['OPTIONLIST'];
-    }
+    _getOptionList = () => this.refs['OPTIONLIST'];
 
-    _canada(province) {
+    _handleSelection = (value) => {
         this.setState({
             ...this.state,
-            canada: province,
+            selectionResult: value,
         });
     }
 
@@ -61,9 +56,9 @@ class App extends Component {
                 <Select
                     width={250}
                     ref="SELECT1"
-                    optionListRef={this._getOptionList.bind(this)}
-                    defaultValue="Select a Province in Canada ..."
-                    onSelect={this._canada.bind(this)}>
+                    optionListRef={this._getOptionList}
+                    defaultValue="Select an Option..."
+                    onSelect={this._handleSelection}>
                     <Option>Alberta</Option>
                     <Option>British Columbia</Option>
                     <Option>Manitoba</Option>
@@ -79,7 +74,7 @@ class App extends Component {
                     <Option>Yukon</Option>
                 </Select>
 
-                <Text>Selected provicne of Canada: {this.state.canada}</Text>
+                <Text>Selected: {this.state.selectionResult}</Text>
 
                 <OptionList ref="OPTIONLIST" />
             </View>
